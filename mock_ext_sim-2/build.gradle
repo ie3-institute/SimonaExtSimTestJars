@@ -1,29 +1,19 @@
 plugins {
     id 'java' // java support
-    id 'signing'
-    id 'maven-publish' // publish to a maven repo (local or mvn central, has to be defined)
-    id 'com.diffplug.spotless' version '6.25.0'// code format
-    id "com.github.johnrengelman.shadow" version "8.1.1" // fat jar
 }
 
 ext {
     //version (changing these should be considered thoroughly!)
     javaVersion = JavaVersion.VERSION_17
-    scriptsLocation = root + File.separator + 'gradle' + File.separator + 'scripts' + File.separator // location of script plugins
 }
 
 group = 'com.github.ie3-institute'
-description = 'simona'
+description = ''
 
 java {
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
 }
-
-apply from: scriptsLocation + 'spotless.gradle'
-apply from: scriptsLocation + 'checkJavaVersion.gradle'
-apply from: scriptsLocation + 'deploy.gradle'
-apply from: scriptsLocation + 'semVer.gradle'
 
 repositories {
     mavenCentral() // searches in Sonatype's central repository
@@ -44,12 +34,5 @@ dependencies {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-}
-
-shadowJar {
-    zip64 = true
-    archiveBaseName.set('mock_ext_sim-2')
-    archiveClassifier.set("")
-    destinationDirectory = file(root + "/buildJars/")
 }
 
